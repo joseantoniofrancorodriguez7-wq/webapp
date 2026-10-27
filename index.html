@@ -333,6 +333,10 @@
   .sumgrid{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;max-width:760px}
   .sumitem{position:relative;padding-bottom:10px;animation:dealIn .5s backwards}
   .sumitem:nth-child(2){animation-delay:.1s}.sumitem:nth-child(3){animation-delay:.2s}.sumitem:nth-child(4){animation-delay:.3s}
+  .pk-actions button.danger{background:rgba(255,200,0,.12);border-color:#ffd86b;color:#ffd86b}
+  .pk-actions button.danger.armed{background:#ff5b5b;border-color:#ff5b5b;color:#fff;animation:pulseBtn 1s infinite}
+  .sellbulk{background:rgba(255,200,0,.14)!important;border-color:#ffd86b!important;color:#ffd86b!important}
+  .sellbulk:disabled{opacity:.4;cursor:not-allowed}
   .rcount{font-weight:900;letter-spacing:3px;opacity:.7;margin-bottom:4px}
   .pk-actions button:disabled{opacity:.4;cursor:not-allowed}
 
@@ -1066,7 +1070,8 @@ function renderColl(){
       <div class="cbar"><i style="width:0" data-w="${pct}"></i></div>
       <div class="ctiers">${TIERS.map((t,i)=>{
         const g=POOL[i].filter(p=>have(p.n)).length;
-        return `<span style="border-color:${t.col};color:${t.col}">${t.n} ${g}/${POOL[i].length}</span>`}).join('')}</div></div>`;
+        return `<span style="border-color:${t.col};color:${t.col}">${t.n} ${g}/${POOL[i].length}</span>`}).join('')}</div>
+      <div style="text-align:center;margin-top:14px"><button class="chip sellbulk" id="sellBulk" ${dupTotal()?'':'disabled'}>💰 Vender todas las repetidas${dupTotal()?' +'+dupTotal().toLocaleString('es-ES')+' 🪙':''}</button></div></div>`;
   setTimeout(()=>document.querySelectorAll('.cbar i').forEach(i=>i.style.width=i.dataset.w+'%'),60);
   let list=[...P].sort((a,b)=>b.ovr-a.ovr);
   if(collFilter==='have')list=list.filter(p=>have(p.n));
@@ -1087,6 +1092,13 @@ document.getElementById('collChips').addEventListener('click',e=>{
   document.querySelectorAll('#collChips .chip').forEach(c=>c.classList.remove('on'));
   b.classList.add('on');collFilter=b.dataset.f;renderColl();
 });
+document.getElementById('collHead').addEventListener('click',e=>{
+  if(!e.target.closest('#sellBulk'))return;
+  let gain=0;
+  P.forEach(p=>{const extra=(S.coll[p.n]||0)-1;if(extra>0)gain+=sellCopies(p,extra)});
+  if(gain)toast('💰 +'+gain.toLocaleString('es-ES')+' 🪙 por repetidas');
+  refreshViews();
+});
 collGrid.addEventListener('click',e=>{
   const it=e.target.closest('.citem');if(!it)return;
   if(it.classList.contains('locked')){toast('🔒 Abre sobres para desbloquear a este jugador');return}
@@ -1094,23 +1106,46 @@ collGrid.addEventListener('click',e=>{
 });
 
 /* botones extra dentro de la ficha */
+function dupTotal(){
+  return P.reduce((s,p)=>s+Math.max(0,(S.coll[p.n]||0)-1)*TIERS[tierOf(p)].sell,0);
+}
+function sellCopies(p,n){
+  const have0=S.coll[p.n]||0;n=Math.min(n,have0);if(n<=0)return 0;
+  const gain=TIERS[tierOf(p)].sell*n;
+  S.coll[p.n]=have0-n;
+  if(S.coll[p.n]<=0){
+    delete S.coll[p.n];
+    S.squad.slots=S.squad.slots.map(x=>x===p.n?null:x); // si estaba en el once, sale
+  }
+  addCoins(gain);beep(988,.15,'triangle',.07);beep(1318,.25,'triangle',.07,.1);
+  return gain;
+}
 function modalExtras(p){
   if(!have(p.n))return '<div class="tag" style="margin-top:14px;display:inline-block">🔒 Aún no la tienes</div>';
-  const c=S.coll[p.n],t=TIERS[tierOf(p)];
+  const c=S.coll[p.n],t=TIERS[tierOf(p)],fmt=n=>n.toLocaleString('es-ES');
   return `<div class="tags" style="margin-top:14px"><span class="tag">Tienes ${c}</span><span class="tag" style="color:${t.col}">${t.n}</span></div>
-    <div class="pk-actions" style="justify-content:flex-start;animation:none">
+    <div class="pk-actions" style="justify-content:flex-start;flex-wrap:wrap;animation:none">
       <button class="main" data-act="addxi" data-n="${p.n}">⚽ Añadir a mi once</button>
-      ${c>1?`<button data-act="sell" data-n="${p.n}">💰 Vender repetida +${t.sell}</button>`:''}
+      <button class="danger" data-act="sell1" data-n="${p.n}" data-last="${c===1?1:0}">💰 Vender ${c>1?'1 repetida':'jugador'} +${fmt(t.sell)} 🪙</button>
+      ${c>1?`<button class="danger" data-act="sellall" data-n="${p.n}">💸 Vender las ${c} +${fmt(t.sell*c)} 🪙</button>`:''}
     </div>`;
 }
 panel.addEventListener('click',e=>{
   const b=e.target.closest('[data-act]');if(!b)return;
   const p=byName(b.dataset.n);if(!p)return;
-  if(b.dataset.act==='addxi'){if(addToXI(p))closeModal()}
-  if(b.dataset.act==='sell'){
-    if((S.coll[p.n]||0)>1){S.coll[p.n]--;addCoins(TIERS[tierOf(p)].sell);toast('+'+TIERS[tierOf(p)].sell+' 🪙')}
-    closeModal();refreshViews();
+  const act=b.dataset.act;
+  if(act==='addxi'){if(addToXI(p))closeModal();return}
+  // vender la última copia o todas: pide confirmar con un segundo clic
+  const risky=act==='sellall'||(act==='sell1'&&b.dataset.last==='1');
+  if(risky&&!b.dataset.armed){
+    b.dataset.armed='1';const old=b.innerHTML;
+    b.innerHTML='⚠️ ¿Seguro? Pulsa otra vez';b.classList.add('armed');
+    setTimeout(()=>{if(b.isConnected){b.innerHTML=old;b.classList.remove('armed');delete b.dataset.armed}},3000);
+    return;
   }
+  const gain=sellCopies(p,act==='sellall'?S.coll[p.n]:1);
+  if(gain){toast('+'+gain.toLocaleString('es-ES')+' 🪙 por vender a '+p.n)}
+  closeModal();refreshViews();
 });
 
 /* ---------- MI ONCE ---------- */
