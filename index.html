@@ -584,9 +584,9 @@ const CLUBINFO={
  "AC Milan":["MIL","#fb090b",98],"Juventus":["JUV","#2a2a2a",109],"Manchester United":["MUN","#da291c",66],
  "Al-Nassr":["NAS","#e6b800",null],"Inter Miami":["MIA","#e58ab0",null],"Santos":["SAN","#444444",null],"LAFC":["LAF","#a58a4f",null],
  "Atlético de Madrid":["ATM","#cb3524",78],"Aston Villa":["AVL","#670e36",58],"Borussia Dortmund":["BVB","#e6c700",4],
- "Chelsea":["CHE","#034694",61],"Dinamo Moscú":["DIN","#0a4ea0",null]
+ "Chelsea":["CHE","#034694",61],"Dinamo Moscú":["DIN","#0a4ea0",null],"Al-Hilal":["HIL","#0b5ed7",null]
 };
-const CLUBWIKI={"Al-Nassr":"Al Nassr FC","Inter Miami":"Inter Miami CF","Santos":"Santos FC","LAFC":"Los Angeles FC","Dinamo Moscú":"FC Dynamo Moscow"};
+const CLUBWIKI={"Al-Nassr":"Al Nassr FC","Inter Miami":"Inter Miami CF","Santos":"Santos FC","LAFC":"Los Angeles FC","Dinamo Moscú":"FC Dynamo Moscow","Al-Hilal":"Al Hilal SFC"};
 const CRESTURL={};
 Object.keys(CLUBINFO).forEach(k=>{const id=CLUBINFO[k][2];if(id)CRESTURL[k]='https://crests.football-data.org/'+id+'.png'});
 
@@ -646,7 +646,7 @@ P.push(
  T("E. Martínez","Emiliano Martínez","Aston Villa","Argentina","ar","GK","POR",86,"gold",[85,84,80,87,56,86],true),
  T("Kobel","Gregor Kobel","Borussia Dortmund","Suiza","ch","GK","POR",86,"gold",[86,85,80,87,58,85],true),
  T("Lunin","Andriy Lunin","Real Madrid","Ucrania","ua","GK","POR",85,"gold",[85,83,78,86,56,85],true),
- T("Safonov","Matvey Safonov","PSG","Rusia","ru","GK","POR",84,"gold",[84,82,77,85,58,83],true)
+ T("Bono","Yassine Bounou (Bono)","Al-Hilal","Marruecos","ma","GK","POR",86,"gold",[85,83,78,87,58,85],true)
 );
 
 const L=["RIT","TIR","PAS","REG","DEF","FIS"], LGK=["ZAM","MAN","SAQ","REF","VEL","COL"];
@@ -670,7 +670,7 @@ const WIKI={
  "Čech":"Petr_Čech","Van der Sar":"Edwin_van_der_Sar","Zoff":"Dino_Zoff","Neuer":"Manuel_Neuer",
  "Oblak":"Jan_Oblak","Maignan":"Mike_Maignan","Mamardashvili":"Giorgi_Mamardashvili","Raya":"David_Raya",
  "Ter Stegen":"Marc-André_ter_Stegen","Sommer":"Yann_Sommer","E. Martínez":"Emiliano_Martínez",
- "Kobel":"Gregor_Kobel","Lunin":"Andriy_Lunin","Safonov":"Matvey_Safonov"
+ "Kobel":"Gregor_Kobel","Lunin":"Andriy_Lunin","Bono":"Yassine_Bounou"
 };
 const PH={}; // nombre -> {url, kind:'cut'|'photo'}
 
