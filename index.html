@@ -271,6 +271,129 @@
   .epic-shake{animation:bigShake .6s}
   @keyframes bigShake{20%{transform:translate(-8px,5px)}40%{transform:translate(8px,-5px)}60%{transform:translate(-5px,3px)}80%{transform:translate(4px,-3px)}}
 
+  /* ===== NAVEGACIÓN Y MONEDAS ===== */
+  nav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+    padding:10px 20px;background:rgba(5,8,22,.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.1)}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tab{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);color:#fff;padding:9px 16px;border-radius:12px;
+    cursor:pointer;font-weight:800;font-size:.88rem;transition:.2s}
+  .tab:hover{transform:translateY(-2px);border-color:var(--accent)}
+  .tab.on{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#04101f;border-color:transparent}
+  .tab em{font-style:normal;font-size:.72rem;opacity:.75;margin-left:4px}
+  #wallet{display:flex;align-items:center;gap:10px}
+  #wallet b{background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.5);color:#ffd86b;padding:8px 16px;border-radius:999px;font-size:1rem}
+  #wallet.bad{animation:bad .5s}
+  @keyframes bad{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+  #freeBtn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:8px 14px;
+    font-weight:800;font-size:.8rem;cursor:pointer}
+  #freeBtn.ready{background:linear-gradient(90deg,#ff9d00,#ffd86b);color:#2b1a00;border-color:transparent;animation:pulseBtn 2s ease-in-out infinite}
+  .view{display:none;position:relative;z-index:1}
+  .view.on{display:block;animation:fade .35s}
+  .vt{text-align:center;font-size:clamp(1.6rem,4vw,2.4rem);margin:30px 0 4px}
+  .vs{text-align:center;opacity:.65;font-size:.92rem;margin:0 20px 14px}
+  .toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);z-index:95;background:rgba(5,8,22,.95);
+    border:1px solid var(--accent);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;animation:toastIn .3s,toastOut .4s 2.1s forwards;
+    box-shadow:0 8px 30px rgba(0,0,0,.5)}
+  @keyframes toastIn{from{opacity:0;transform:translate(-50%,20px)}}
+  @keyframes toastOut{to{opacity:0;transform:translate(-50%,10px)}}
+
+  /* ===== TIENDA ===== */
+  .shop{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;max-width:1150px;margin:20px auto;padding:0 20px}
+  .shop-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:24px 20px;text-align:center;
+    transition:.3s;position:relative;overflow:hidden}
+  .shop-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0,var(--c1),transparent 60%);opacity:.18;pointer-events:none}
+  .shop-card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(0,0,0,.45);border-color:var(--c1)}
+  .shop-card h3{margin:14px 0 2px;font-size:1.25rem}
+  .shop-card .sub{opacity:.75;font-size:.85rem;margin-bottom:14px}
+  .shop-card .sub b{color:var(--accent)}
+  .pack-wrap.sm{display:inline-block;animation:float 3.2s ease-in-out infinite}
+  .pack-wrap.sm .pack{width:130px;height:200px}
+  .pack-wrap.sm .pk-in b{font-size:2.1rem}
+  .pack-wrap.sm .pk-in span{font-size:.62rem}
+  .pack-wrap.sm .pk-in em{font-size:.55rem;margin-top:16px}
+  .odds{text-align:left;margin-bottom:16px}
+  .odd{display:grid;grid-template-columns:64px 1fr 40px;align-items:center;gap:8px;font-size:.78rem;font-weight:800;margin:6px 0}
+  .odd b{text-align:right}
+  .obar{height:8px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden}
+  .obar i{display:block;height:100%;width:0;border-radius:6px;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+  .buy{width:100%;padding:13px;border-radius:14px;border:none;font-weight:900;font-size:.95rem;cursor:pointer;
+    background:linear-gradient(90deg,#ff9d00,#ffd86b);color:#2b1a00;transition:.2s}
+  .buy:hover:not(:disabled){transform:scale(1.04);box-shadow:0 0 22px rgba(255,200,0,.6)}
+  .buy:disabled{opacity:.4;cursor:not-allowed;filter:grayscale(.6)}
+
+  /* ===== MINICARTAS ===== */
+  .mini{--k:.5;position:relative;width:calc(230px*var(--k));height:calc(330px*var(--k))}
+  .mini .scene{position:absolute;left:0;top:0;transform:scale(var(--k));transform-origin:0 0;animation:none;opacity:1}
+  .mtag{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);font-size:.62rem;font-weight:900;letter-spacing:1px;
+    padding:3px 9px;border-radius:999px;white-space:nowrap;z-index:5}
+  .mtag.new{background:var(--accent);color:#04101f}
+  .mtag.dup{background:rgba(255,255,255,.85);color:#222}
+  .mtag.off{background:#ff5b5b;color:#fff}
+  .sumtitle{text-align:center;margin-bottom:18px;letter-spacing:2px}
+  .sumgrid{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;max-width:760px}
+  .sumitem{position:relative;padding-bottom:10px;animation:dealIn .5s backwards}
+  .sumitem:nth-child(2){animation-delay:.1s}.sumitem:nth-child(3){animation-delay:.2s}.sumitem:nth-child(4){animation-delay:.3s}
+  .rcount{font-weight:900;letter-spacing:3px;opacity:.7;margin-bottom:4px}
+  .pk-actions button:disabled{opacity:.4;cursor:not-allowed}
+
+  /* ===== COLECCIÓN ===== */
+  .cprog{max-width:700px;margin:12px auto 0;padding:0 20px}
+  .cp-top{display:flex;justify-content:space-between;font-weight:800;margin-bottom:6px}
+  .cbar{height:12px;background:rgba(255,255,255,.12);border-radius:8px;overflow:hidden}
+  .cbar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+  .ctiers{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+  .ctiers span{border:1px solid;border-radius:999px;padding:4px 12px;font-size:.75rem;font-weight:800}
+  .citem{position:relative;width:230px;height:330px}
+  .cnt{position:absolute;top:6px;right:2px;z-index:6;background:var(--accent);color:#04101f;border-radius:999px;padding:2px 10px;font-weight:900;font-size:.82rem}
+  .lockcard{position:relative;width:230px;height:330px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+    clip-path:polygon(50% 0,92% 6%,100% 8%,100% 88%,50% 100%,0 88%,0 8%,8% 6%);background:linear-gradient(160deg,#2b2f45,#12142a);
+    color:#8890b0;cursor:pointer;opacity:0;animation:dealIn .6s forwards;transition:filter .3s}
+  .lockcard::before{content:'';position:absolute;inset:0;background:var(--tc);opacity:.13}
+  .lockcard:hover{filter:brightness(1.3)}
+  .lockcard .q{font-size:6rem;font-weight:900;line-height:1;opacity:.35;position:relative}
+  .lockcard .lt{font-weight:900;letter-spacing:3px;font-size:.85rem;position:relative}
+  .lockcard .lk{font-size:.8rem;opacity:.7;position:relative}
+
+  /* ===== MI ONCE ===== */
+  .sqbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;max-width:900px;margin:14px auto 6px;padding:0 20px}
+  .sqbar select{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:9px 14px;font-weight:800}
+  .sqbar select option{background:#14093d}
+  .pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:6px 16px;text-align:center;min-width:86px}
+  .pill small{display:block;font-size:.6rem;letter-spacing:2px;opacity:.6}
+  .pill b{font-size:1.3rem;color:var(--accent)}
+  .pitch{--sk:.46;position:relative;width:min(100% - 24px,720px);aspect-ratio:4/5;margin:14px auto 40px;border-radius:20px;
+    border:3px solid rgba(255,255,255,.55);overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.5);
+    background:repeating-linear-gradient(0deg,#1b8a3f 0 9%,#1f9a47 9% 18%)}
+  .ln{position:absolute;border:2px solid rgba(255,255,255,.45);pointer-events:none}
+  .ln.mid{left:0;right:0;top:50%;border-width:2px 0 0}
+  .ln.circle{width:22%;aspect-ratio:1;left:39%;top:50%;transform:translateY(-50%);border-radius:50%}
+  .ln.boxT{left:25%;right:25%;top:0;height:14%;border-top:none}
+  .ln.boxB{left:25%;right:25%;bottom:0;height:14%;border-bottom:none}
+  .pitch .mini{--k:var(--sk)}
+  .slot{position:absolute;transform:translate(-50%,-50%);z-index:2;cursor:pointer;transition:transform .2s}
+  .slot:hover{transform:translate(-50%,-52%) scale(1.06);z-index:5}
+  .emptyslot{display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px dashed rgba(255,255,255,.6);
+    border-radius:12px;background:rgba(0,0,0,.2);font-weight:900;color:#fff}
+  .emptyslot b{font-size:2rem;line-height:1}
+  .emptyslot span{font-size:.75rem;letter-spacing:2px;opacity:.85}
+  .slot .x{position:absolute;top:-6px;right:-6px;z-index:8;width:22px;height:22px;border-radius:50%;border:none;background:#ff5b5b;color:#fff;
+    font-weight:900;font-size:.7rem;cursor:pointer;opacity:0;transition:.2s}
+  .slot:hover .x{opacity:1}
+  .slot .off{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);background:#ff5b5b;color:#fff;font-size:.5rem;font-weight:900;
+    padding:2px 6px;border-radius:999px;white-space:nowrap;z-index:6}
+  @media (max-width:640px){.pitch{--sk:.3}.citem,.lockcard{transform-origin:top center}}
+
+  /* selector de jugador */
+  #picker{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(3,5,20,.85);backdrop-filter:blur(8px);padding:16px}
+  #picker.open{display:flex;animation:fade .25s}
+  .ppanel{position:relative;background:#0e1030;border:1px solid rgba(255,255,255,.2);border-radius:22px;padding:26px 22px;width:min(100%,860px);
+    max-height:88vh;overflow:auto;animation:pop .35s cubic-bezier(.2,1.2,.3,1)}
+  .ppanel h3{text-align:center;margin-bottom:16px;letter-spacing:2px}
+  .pclose{position:absolute;top:10px;right:16px;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;opacity:.7}
+  .pgrid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+  .pitem{position:relative;cursor:pointer;padding-bottom:10px;transition:transform .2s}
+  .pitem:hover{transform:translateY(-6px)}
+
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
     .scene{opacity:1;transform:none}
@@ -285,6 +408,17 @@
   <p>Los mejores jugadores del juego</p>
 </header>
 
+<nav id="nav">
+  <div class="tabs">
+    <button class="tab on" data-v="gallery">🃏 Catálogo</button>
+    <button class="tab" data-v="shop">🎁 Sobres</button>
+    <button class="tab" data-v="coll">📚 Colección <em id="collBadge"></em></button>
+    <button class="tab" data-v="squad">⚽ Mi once</button>
+  </div>
+  <div id="wallet"><b>🪙 <span id="coinN">0</span></b><button id="freeBtn" title="Monedas gratis cada 5 minutos"></button></div>
+</nav>
+
+<div id="view-gallery" class="view on">
 <section class="controls">
   <input id="q" type="search" placeholder="Buscar jugador o equipo...">
   <select id="nat"><option value="">🌍 Todas las nacionalidades</option></select>
@@ -302,12 +436,44 @@
     <button class="chip" data-p="POR">POR</button>
     <button class="chip" data-p="ICON">👑 ICONOS</button>
   </div>
-  <button class="chip pack-btn" id="openPack">🎁 ABRIR SOBRE</button>
   <div id="count"></div>
 </section>
 
 <main class="grid" id="grid"></main>
+</div>
 
+<div id="view-shop" class="view">
+  <h2 class="vt">🎁 Tienda de sobres</h2>
+  <p class="vs">Cada sobre tiene sus propias probabilidades. Mira la media esperada antes de comprar.</p>
+  <div class="shop" id="shopGrid"></div>
+</div>
+
+<div id="view-coll" class="view">
+  <h2 class="vt">📚 Mi colección</h2>
+  <div id="collHead"></div>
+  <div class="chips" id="collChips" style="justify-content:center;margin:14px 0">
+    <button class="chip on" data-f="all">TODAS</button>
+    <button class="chip" data-f="have">DESBLOQUEADAS</button>
+    <button class="chip" data-f="miss">BLOQUEADAS</button>
+  </div>
+  <div class="grid" id="collGrid"></div>
+</div>
+
+<div id="view-squad" class="view">
+  <h2 class="vt">⚽ Mi once inicial</h2>
+  <div class="sqbar">
+    <select id="formSel"></select>
+    <button class="chip" id="sqAuto">✨ Mejor once</button>
+    <button class="chip" id="sqClear">🗑 Vaciar</button>
+    <div class="pill"><small>MEDIA</small><b id="sqRating">–</b></div>
+    <div class="pill"><small>QUÍMICA</small><b id="sqChem">0%</b></div>
+    <div class="pill"><small>JUGADORES</small><b id="sqCount">0/11</b></div>
+  </div>
+  <p class="vs">Toca un hueco para elegir jugador. Solo puedes usar los que has desbloqueado.</p>
+  <div class="pitch" id="pitch"></div>
+</div>
+
+<div id="picker"></div>
 <div id="modal"><div class="panel" id="panel"></div></div>
 <div id="packs">
   <div id="pkCount"></div>
@@ -334,7 +500,7 @@ const P=[
  {n:"Musiala",full:"Jamal Musiala",c:"Bayern München",ab:"FCB",col:"#dc052d",nat:"Alemania",f:"de",pos:"CAM",g:"MED",ovr:88,r:"special",a:[82,80,82,93,60,64]},
  {n:"Dembélé",full:"Ousmane Dembélé",c:"PSG",ab:"PSG",col:"#004170",nat:"Francia",f:"fr",pos:"RW",g:"ATA",ovr:88,r:"gold",a:[92,84,83,91,42,68]},
  {n:"Pedri",full:"Pedro González",c:"FC Barcelona",ab:"FCB",col:"#a50044",nat:"España",f:"es",pos:"CM",g:"MED",ovr:87,r:"gold",a:[76,74,87,90,70,66]},
- {n:"Van Dijk",full:"Virgil van Dijk",c:"Liverpool",ab:"LIV",col:"#c8102e",nat:"Países Bajos",f:"nl",pos:"CB",g:"DEF",ovr:88,r:"icon",a:[78,60,71,72,90,86]},
+ {n:"Van Dijk",full:"Virgil van Dijk",c:"Liverpool",ab:"LIV",col:"#c8102e",nat:"Países Bajos",f:"nl",pos:"CB",g:"DEF",ovr:88,r:"gold",a:[78,60,71,72,90,86]},
  {n:"Rüdiger",full:"Antonio Rüdiger",c:"Real Madrid",ab:"RMA",col:"#6b5bd6",nat:"Alemania",f:"de",pos:"CB",g:"DEF",ovr:86,r:"gold",a:[82,52,66,70,87,87]},
  {n:"Courtois",full:"Thibaut Courtois",c:"Real Madrid",ab:"RMA",col:"#6b5bd6",nat:"Bélgica",f:"be",pos:"GK",g:"POR",ovr:89,r:"toty",a:[87,85,84,82,89,86],gk:true}
 ];
@@ -622,9 +788,8 @@ document.getElementById('pos').addEventListener('click',e=>{
 
 /* ---------- MODAL ---------- */
 const modal=document.getElementById('modal'),panel=document.getElementById('panel');
-grid.addEventListener('click',e=>{
-  const s=e.target.closest('.scene');if(!s)return;
-  const p=P.find(x=>x.n===s.dataset.name);if(!p)return;
+function openCard(p){
+  if(!p)return;
   const lf=p.gk?LFGK:LF;
   panel.innerHTML=`<button id="close" aria-label="Cerrar">×</button>
     ${cardHTML(p)}
@@ -634,10 +799,15 @@ grid.addEventListener('click',e=>{
       <div class="meta"><span class="mcrest">${crestHTML(p)}</span> ${p.c}</div>
       <div class="tags"><span class="tag">Posición: ${p.pos}</span><span class="tag">Valoración: ${p.ovr}</span><span class="tag">Carta: ${p.r.toUpperCase()}</span></div>
       ${p.a.map((v,i)=>`<div class="bar-row"><div class="bar-top"><span>${lf[i]}</span><span>${v}</span></div><div class="bar"><i data-w="${v}"></i></div></div>`).join('')}
+      ${modalExtras(p)}
     </div>`;
   modal.classList.add('open');
   countUp(panel);tilt(panel);
   setTimeout(()=>panel.querySelectorAll('.bar i').forEach(i=>i.style.width=i.dataset.w+'%'),80);
+}
+grid.addEventListener('click',e=>{
+  const s=e.target.closest('.scene');if(!s)return;
+  openCard(byName(s.dataset.name));
 });
 function closeModal(){modal.classList.remove('open')}
 modal.addEventListener('click',e=>{if(e.target===modal||e.target.id==='close')closeModal()});
@@ -657,11 +827,9 @@ size();addEventListener('resize',size);
   requestAnimationFrame(loop);
 })();
 
-/* ---------- SOBRES ---------- */
+/* ---------- SONIDO Y EFECTOS ---------- */
 const pk=document.getElementById('packs'), stage=document.getElementById('pkStage');
-let owned=new Set();try{owned=new Set(JSON.parse(localStorage.getItem('fc27owned')||'[]'))}catch(e){}
-let busy=false, ac=null;
-
+let ac=null;
 function beep(freq,dur,type,vol,when){
   try{
     ac=ac||new (window.AudioContext||window.webkitAudioContext)();
@@ -670,13 +838,6 @@ function beep(freq,dur,type,vol,when){
     g.gain.setValueAtTime(vol||.07,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
     o.start(t);o.stop(t+dur);
   }catch(e){}
-}
-// los de más valoración salen mucho menos
-function pickPlayer(){
-  const w=P.map(p=>Math.pow(Math.max(1,92-p.ovr),1.5));
-  let r=Math.random()*w.reduce((a,b)=>a+b,0);
-  for(let i=0;i<P.length;i++){r-=w[i];if(r<=0)return P[i]}
-  return P[P.length-1];
 }
 function confetti(){
   const cols=['#ffd86b','#00ff9d','#00d4ff','#ff7be5','#fff'];
@@ -689,56 +850,386 @@ function confetti(){
     document.body.appendChild(s);setTimeout(()=>s.remove(),5000);
   }
 }
-function updateCount(){document.getElementById('pkCount').textContent='COLECCIÓN: '+owned.size+' / '+P.length}
-function showPack(){
-  busy=false;updateCount();
-  stage.innerHTML=`<div class="pack-wrap" id="pack" role="button" tabindex="0" aria-label="Abrir sobre">
-      <div class="pack"><div class="pk-in"><b>FC 27</b><span>ULTIMATE PACK</span><em>★ ORO PREMIUM ★</em></div></div>
-    </div><p class="hint">Toca el sobre para abrirlo</p>`;
-  const el=document.getElementById('pack');
-  el.onclick=openPack;
-  el.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')openPack()};
+function toast(msg){
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
 }
-async function openPack(){
-  if(busy)return;busy=true;
+
+/* ---------- PARTIDA GUARDADA: monedas, colección y once ---------- */
+const SAVE='fc27save2';
+const S={coins:3000,coll:{},lastFree:0,squad:{f:'4-3-3',slots:Array(11).fill(null)}};
+try{const d=JSON.parse(localStorage.getItem(SAVE)||'null');if(d)Object.assign(S,d)}catch(e){}
+try{ // migración del sistema antiguo de sobres
+  if(!localStorage.getItem(SAVE)){JSON.parse(localStorage.getItem('fc27owned')||'[]').forEach(n=>S.coll[n]=1)}
+}catch(e){}
+if(!S.squad||!Array.isArray(S.squad.slots)||S.squad.slots.length!==11)S.squad={f:'4-3-3',slots:Array(11).fill(null)};
+function save(){try{localStorage.setItem(SAVE,JSON.stringify(S))}catch(e){}}
+const byName=n=>P.find(p=>p.n===n);
+const have=n=>(S.coll[n]||0)>0;
+
+/* categorías de carta */
+const TIERS=[
+ {n:'Común',  col:'#b8c2d6',sell:100},
+ {n:'Rara',   col:'#4aa8ff',sell:250},
+ {n:'Épica',  col:'#c56bff',sell:700},
+ {n:'Leyenda',col:'#ffd86b',sell:2000}
+];
+const tierOf=p=>(p.r==='icon'||p.ovr>=91)?3:p.ovr>=89?2:p.ovr>=88?1:0;
+const POOL=[0,1,2,3].map(t=>P.filter(p=>tierOf(p)===t));
+const avgOvr=a=>a.length?a.reduce((s,p)=>s+p.ovr,0)/a.length:0;
+
+/* tipos de sobre: odds = % de que cada carta sea Común / Rara / Épica / Leyenda */
+const PACKS=[
+ {id:'bronce', n:'Sobre Bronce', price:500,   cards:3, odds:[70,25, 5, 0], c1:'#e0a064', c2:'#5a3410'},
+ {id:'plata',  n:'Sobre Plata',  price:1500,  cards:3, odds:[35,45,17, 3], c1:'#f1f3f8', c2:'#59616f'},
+ {id:'oro',    n:'Sobre Oro',    price:4000,  cards:4, odds:[10,45,35,10], c1:'#ffe27a', c2:'#9a6a00'},
+ {id:'leyenda',n:'Sobre Leyenda',price:10000, cards:4, odds:[ 0,20,50,30], c1:'#7bf3ff', c2:'#7a1bd6'}
+];
+function rollTier(odds){
+  let r=Math.random()*100,acc=0;
+  for(let i=0;i<odds.length;i++){acc+=odds[i];if(r<acc)return i}
+  return odds.length-1;
+}
+function drawCard(k){
+  let t=rollTier(k.odds);
+  while(!POOL[t].length)t=(t+1)%4;
+  const pool=POOL[t];return pool[Math.floor(Math.random()*pool.length)];
+}
+
+/* ---------- MONEDAS ---------- */
+let shownCoins=S.coins;
+function drawCoins(){
+  const el=document.getElementById('coinN'),from=shownCoins,to=S.coins,t0=performance.now();shownCoins=to;
+  (function st(t){
+    const k=Math.min(1,(t-t0)/600);
+    el.textContent=Math.round(from+(to-from)*k).toLocaleString('es-ES');
+    if(k<1)requestAnimationFrame(st);
+  })(t0);
+  document.querySelectorAll('.buy').forEach(b=>b.disabled=S.coins<+b.dataset.price);
+}
+function addCoins(n){S.coins+=n;save();drawCoins()}
+function updateBadge(){
+  const got=P.filter(p=>have(p.n)).length;
+  document.getElementById('collBadge').textContent=got+'/'+P.length;
+}
+const FREE_MS=5*60*1000, FREE_AMT=150;
+const freeBtn=document.getElementById('freeBtn');
+function tickFree(){
+  const left=S.lastFree+FREE_MS-Date.now();
+  if(left<=0){freeBtn.textContent='🎁 Cobrar +'+FREE_AMT;freeBtn.classList.add('ready')}
+  else{
+    freeBtn.classList.remove('ready');
+    const s=Math.ceil(left/1000);
+    freeBtn.textContent='⏳ '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  }
+}
+freeBtn.addEventListener('click',()=>{
+  if(S.lastFree+FREE_MS>Date.now())return;
+  S.lastFree=Date.now();addCoins(FREE_AMT);toast('+'+FREE_AMT+' 🪙');beep(880,.2,'triangle',.06);tickFree();
+});
+setInterval(tickFree,1000);
+
+/* ---------- NAVEGACIÓN ---------- */
+let cur='gallery';
+function go(v){
+  cur=v;
+  document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='view-'+v));
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x.dataset.v===v));
+  if(v==='shop')renderShop();
+  if(v==='coll')renderColl();
+  if(v==='squad')renderSquad();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelector('.tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(b)go(b.dataset.v)});
+function refreshViews(){if(cur==='coll')renderColl();if(cur==='squad')renderSquad();updateBadge()}
+
+/* ---------- TIENDA DE SOBRES ---------- */
+const shopGrid=document.getElementById('shopGrid');
+function renderShop(){
+  shopGrid.innerHTML=PACKS.map(k=>{
+    const media=k.odds.reduce((s,o,i)=>s+o/100*avgOvr(POOL[i]),0);
+    return `<div class="shop-card" style="--c1:${k.c1};--c2:${k.c2}">
+      <div class="pack-wrap sm"><div class="pack" style="background:linear-gradient(150deg,${k.c2},${k.c1})">
+        <div class="pk-in"><b>FC 27</b><span>${k.n.toUpperCase().replace('SOBRE ','')}</span><em>${k.cards} CARTAS</em></div></div></div>
+      <h3>${k.n}</h3>
+      <div class="sub">${k.cards} cartas · Media esperada <b>${media.toFixed(1)}</b></div>
+      <div class="odds">${TIERS.map((t,i)=>`
+        <div class="odd"><span style="color:${t.col}">${t.n}</span>
+          <div class="obar"><i data-w="${k.odds[i]}" style="background:${t.col}"></i></div><b>${k.odds[i]}%</b></div>`).join('')}</div>
+      <button class="buy" data-pack="${k.id}" data-price="${k.price}">🪙 ${k.price.toLocaleString('es-ES')} · Comprar y abrir</button>
+    </div>`;
+  }).join('');
+  drawCoins();
+  setTimeout(()=>shopGrid.querySelectorAll('.obar i').forEach(i=>i.style.width=i.dataset.w+'%'),60);
+}
+shopGrid.addEventListener('click',e=>{const b=e.target.closest('.buy');if(b)buyPack(b.dataset.pack)});
+
+/* ---------- ABRIR SOBRES ---------- */
+let busy=false, seqId=0, pendingRes=null;
+const waitUser=el=>new Promise(r=>{
+  pendingRes=r;
+  el.onclick=()=>{pendingRes=null;r()};
+  el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){pendingRes=null;r()}};
+});
+function buyPack(id){
+  const k=PACKS.find(x=>x.id===id);if(!k||busy)return;
+  if(S.coins<k.price){
+    toast('No tienes monedas suficientes 🪙');
+    const w=document.getElementById('wallet');w.classList.remove('bad');void w.offsetWidth;w.classList.add('bad');
+    return;
+  }
+  S.coins-=k.price;
+  const seen=new Set(),res=[];
+  for(let i=0;i<k.cards;i++){
+    const p=drawCard(k);
+    res.push({p,isNew:!have(p.n)&&!seen.has(p.n)});seen.add(p.n);
+  }
+  res.forEach(r=>S.coll[r.p.n]=(S.coll[r.p.n]||0)+1);
+  save();drawCoins();updateBadge();
+  openSequence(k,res);
+}
+async function openSequence(k,res){
+  const id=++seqId;busy=true;
+  pk.classList.add('open');
+  document.getElementById('pkCount').textContent=k.n.toUpperCase();
+  stage.innerHTML=`<div class="pack-wrap" id="pack" role="button" tabindex="0" aria-label="Abrir sobre">
+      <div class="pack" style="background:linear-gradient(150deg,${k.c2},${k.c1})"><div class="pk-in"><b>FC 27</b><span>${k.n.toUpperCase().replace('SOBRE ','')}</span><em>${k.cards} CARTAS</em></div></div>
+    </div><p class="hint">Toca el sobre para abrirlo</p>`;
   const pack=document.getElementById('pack');
+  await waitUser(pack);if(id!==seqId)return;
   stage.querySelector('.hint').style.display='none';
   pack.classList.add('shake');
   beep(90,1.0,'sawtooth',.05);beep(140,.9,'sawtooth',.04,.1);
-  await sleep(1000);
+  await sleep(1000);if(id!==seqId)return;
   pack.classList.remove('shake');pack.classList.add('burst');
   const fl=document.getElementById('flash');fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go');
-  const p=pickPlayer(), isIcon=p.r==='icon', epic=p.ovr>=90||isIcon, rare=p.ovr>=89, isNew=!owned.has(p.n);
   beep(660,.25,'triangle',.08);beep(880,.3,'triangle',.08,.12);
-  await sleep(550);
-  owned.add(p.n);try{localStorage.setItem('fc27owned',JSON.stringify([...owned]))}catch(e){}
-  updateCount();
-  const kind=epic?'epic':rare?'rare':'common';
-  const txt=isIcon?'👑 ¡ICONO LEYENDA!':epic?'🔥 ¡WALKOUT! CARTA ÉPICA':rare?'✨ CARTA RARA':'CARTA COMÚN';
-  stage.innerHTML=`<div class="rv-wrap ${kind}"><div class="rv">
-      <div class="face back">FC</div>
-      <div class="face front">${cardHTML(p)}</div>
-    </div></div>
-    <div class="rlabel ${kind}">${txt}${isNew?'<small>¡NUEVA EN TU COLECCIÓN!</small>':'<small style="color:#fff;opacity:.6">YA LA TENÍAS</small>'}</div>`;
-  countUp(stage);tilt(stage);
-  if(epic){
-    confetti();pk.classList.add('epic-shake');setTimeout(()=>pk.classList.remove('epic-shake'),700);
-    [523,659,784,1047].forEach((f,i)=>beep(f,.4,'triangle',.08,i*.12));
-  }else if(rare){[587,740,880].forEach((f,i)=>beep(f,.35,'triangle',.07,i*.1))}
-  else{beep(440,.3,'triangle',.06)}
-  await sleep(1800);
-  stage.insertAdjacentHTML('beforeend',`<div class="pk-actions">
-      <button class="main" id="again">🎁 Abrir otro sobre</button>
-      <button id="done">Cerrar</button></div>`);
-  document.getElementById('again').onclick=showPack;
-  document.getElementById('done').onclick=closePacks;
-  busy=false;
-}
-function closePacks(){pk.classList.remove('open');stage.innerHTML=''}
-document.getElementById('openPack').addEventListener('click',()=>{pk.classList.add('open');showPack()});
-document.getElementById('pkClose').addEventListener('click',closePacks);
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closePacks()});
+  await sleep(550);if(id!==seqId)return;
 
+  for(let i=0;i<res.length;i++){
+    const {p,isNew}=res[i],t=tierOf(p);
+    const kind=t>=3?'epic':t===2?'rare':'common';
+    const txt=p.r==='icon'?'👑 ¡ICONO LEYENDA!':t>=3?'🔥 ¡CARTA LEYENDA!':t===2?'💜 CARTA ÉPICA':t===1?'✨ CARTA RARA':'CARTA COMÚN';
+    stage.innerHTML=`<div class="rcount">${i+1} / ${res.length}</div>
+      <div class="rv-wrap ${kind}"><div class="rv"><div class="face back">FC</div><div class="face front">${cardHTML(p)}</div></div></div>
+      <div class="rlabel ${kind}">${txt}${isNew?'<small>¡NUEVA EN TU COLECCIÓN!</small>':'<small style="color:#fff;opacity:.6">REPETIDA · se puede vender</small>'}</div>`;
+    countUp(stage);tilt(stage);
+    if(t>=3){
+      confetti();pk.classList.add('epic-shake');setTimeout(()=>pk.classList.remove('epic-shake'),700);
+      [523,659,784,1047].forEach((f,j)=>beep(f,.4,'triangle',.08,j*.12));
+    }else if(t===2){[587,740,880].forEach((f,j)=>beep(f,.35,'triangle',.07,j*.1))}
+    else if(t===1){[523,659].forEach((f,j)=>beep(f,.3,'triangle',.06,j*.1))}
+    else{beep(440,.3,'triangle',.06)}
+    await sleep(t>=2?1500:1100);if(id!==seqId)return;
+    stage.insertAdjacentHTML('beforeend',`<div class="pk-actions"><button class="main" id="nextC">${i<res.length-1?'Siguiente ▶':'Ver resumen'}</button></div>`);
+    await waitUser(document.getElementById('nextC'));if(id!==seqId)return;
+  }
+
+  // resumen
+  const dupVal=()=>res.reduce((s,r)=>s+((!r.isNew)?TIERS[tierOf(r.p)].sell:0),0);
+  stage.innerHTML=`<h2 class="sumtitle">${k.n} abierto</h2>
+    <div class="sumgrid">${res.map(r=>`<div class="sumitem"><div class="mini" style="--k:.5">${cardHTML(r.p)}</div>
+      <span class="mtag ${r.isNew?'new':'dup'}">${r.isNew?'NUEVA':'REPETIDA'}</span></div>`).join('')}</div>
+    <div class="pk-actions" style="animation:none">
+      ${dupVal()>0?`<button id="sellDups">💰 Vender repetidas +${dupVal().toLocaleString('es-ES')} 🪙</button>`:''}
+      <button class="main" id="again" ${S.coins<k.price?'disabled':''}>🎁 Abrir otro (🪙 ${k.price.toLocaleString('es-ES')})</button>
+      <button id="done">Cerrar</button>
+    </div>`;
+  countUp(stage);
+  busy=false;
+  const sd=document.getElementById('sellDups');
+  if(sd)sd.onclick=()=>{
+    let gain=0;
+    res.forEach(r=>{if(!r.isNew&&(S.coll[r.p.n]||0)>1){S.coll[r.p.n]--;gain+=TIERS[tierOf(r.p)].sell}});
+    addCoins(gain);toast('+'+gain.toLocaleString('es-ES')+' 🪙 por repetidas');
+    sd.disabled=true;sd.textContent='✔ Vendidas';
+    document.getElementById('again').disabled=S.coins<k.price;
+    refreshViews();
+  };
+  document.getElementById('again').onclick=()=>{if(S.coins>=k.price)buyPack(k.id)};
+  document.getElementById('done').onclick=closePacks;
+}
+function closePacks(){
+  seqId++;if(pendingRes){const r=pendingRes;pendingRes=null;r()}
+  busy=false;pk.classList.remove('open');stage.innerHTML='';
+  refreshViews();
+}
+document.getElementById('pkClose').addEventListener('click',closePacks);
+
+/* ---------- COLECCIÓN ---------- */
+let collFilter='all';
+const collGrid=document.getElementById('collGrid');
+function renderColl(){
+  const got=P.filter(p=>have(p.n)).length,total=P.length,pct=Math.round(got/total*100);
+  document.getElementById('collHead').innerHTML=`
+    <div class="cprog"><div class="cp-top"><b>${got} / ${total} jugadores</b><span>${pct}%</span></div>
+      <div class="cbar"><i style="width:0" data-w="${pct}"></i></div>
+      <div class="ctiers">${TIERS.map((t,i)=>{
+        const g=POOL[i].filter(p=>have(p.n)).length;
+        return `<span style="border-color:${t.col};color:${t.col}">${t.n} ${g}/${POOL[i].length}</span>`}).join('')}</div></div>`;
+  setTimeout(()=>document.querySelectorAll('.cbar i').forEach(i=>i.style.width=i.dataset.w+'%'),60);
+  let list=[...P].sort((a,b)=>b.ovr-a.ovr);
+  if(collFilter==='have')list=list.filter(p=>have(p.n));
+  if(collFilter==='miss')list=list.filter(p=>!have(p.n));
+  collGrid.innerHTML=list.length?list.map((p,i)=>{
+    if(have(p.n)){
+      const c=S.coll[p.n];
+      return `<div class="citem" data-n="${p.n}">${cardHTML(p,true,Math.min(i,20)*40)}${c>1?`<span class="cnt">x${c}</span>`:''}</div>`;
+    }
+    const t=TIERS[tierOf(p)];
+    return `<div class="citem locked" data-n="${p.n}"><div class="lockcard" style="--tc:${t.col}">
+      <div class="q">?</div><div class="lt" style="color:${t.col}">${t.n.toUpperCase()}</div><div class="lk">🔒 Bloqueada</div></div></div>`;
+  }).join(''):'<div class="empty">Aquí no hay nada todavía 😕</div>';
+  countUp(collGrid);tilt(collGrid);
+}
+document.getElementById('collChips').addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  document.querySelectorAll('#collChips .chip').forEach(c=>c.classList.remove('on'));
+  b.classList.add('on');collFilter=b.dataset.f;renderColl();
+});
+collGrid.addEventListener('click',e=>{
+  const it=e.target.closest('.citem');if(!it)return;
+  if(it.classList.contains('locked')){toast('🔒 Abre sobres para desbloquear a este jugador');return}
+  openCard(byName(it.dataset.n));
+});
+
+/* botones extra dentro de la ficha */
+function modalExtras(p){
+  if(!have(p.n))return '<div class="tag" style="margin-top:14px;display:inline-block">🔒 Aún no la tienes</div>';
+  const c=S.coll[p.n],t=TIERS[tierOf(p)];
+  return `<div class="tags" style="margin-top:14px"><span class="tag">Tienes ${c}</span><span class="tag" style="color:${t.col}">${t.n}</span></div>
+    <div class="pk-actions" style="justify-content:flex-start;animation:none">
+      <button class="main" data-act="addxi" data-n="${p.n}">⚽ Añadir a mi once</button>
+      ${c>1?`<button data-act="sell" data-n="${p.n}">💰 Vender repetida +${t.sell}</button>`:''}
+    </div>`;
+}
+panel.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]');if(!b)return;
+  const p=byName(b.dataset.n);if(!p)return;
+  if(b.dataset.act==='addxi'){if(addToXI(p))closeModal()}
+  if(b.dataset.act==='sell'){
+    if((S.coll[p.n]||0)>1){S.coll[p.n]--;addCoins(TIERS[tierOf(p)].sell);toast('+'+TIERS[tierOf(p)].sell+' 🪙')}
+    closeModal();refreshViews();
+  }
+});
+
+/* ---------- MI ONCE ---------- */
+// [posición, grupo, x%, y%]
+const FORM={
+ '4-3-3':[['GK','POR',50,88],['LB','DEF',13,68],['CB','DEF',38,72],['CB','DEF',62,72],['RB','DEF',87,68],
+          ['CM','MED',25,47],['CM','MED',50,51],['CM','MED',75,47],['LW','ATA',15,20],['ST','ATA',50,14],['RW','ATA',85,20]],
+ '4-4-2':[['GK','POR',50,88],['LB','DEF',13,68],['CB','DEF',38,72],['CB','DEF',62,72],['RB','DEF',87,68],
+          ['LM','MED',13,46],['CM','MED',38,50],['CM','MED',62,50],['RM','MED',87,46],['ST','ATA',34,17],['ST','ATA',66,17]],
+ '3-5-2':[['GK','POR',50,88],['CB','DEF',24,70],['CB','DEF',50,73],['CB','DEF',76,70],
+          ['LM','MED',9,46],['CM','MED',29,52],['CAM','MED',50,40],['CM','MED',71,52],['RM','MED',91,46],['ST','ATA',34,16],['ST','ATA',66,16]],
+ '4-2-3-1':[['GK','POR',50,88],['LB','DEF',13,68],['CB','DEF',38,72],['CB','DEF',62,72],['RB','DEF',87,68],
+          ['CDM','MED',34,54],['CDM','MED',66,54],['LAM','MED',16,34],['CAM','MED',50,32],['RAM','MED',84,34],['ST','ATA',50,13]]
+};
+const formSlots=()=>FORM[S.squad.f]||FORM['4-3-3'];
+const pitchEl=document.getElementById('pitch');
+const fsel=document.getElementById('formSel');
+Object.keys(FORM).forEach(f=>fsel.insertAdjacentHTML('beforeend',`<option>${f}</option>`));
+
+function chemistry(pl){
+  if(pl.length<2)return 0;
+  let pts=0;
+  pl.forEach(p=>{let n=0;pl.forEach(q=>{if(q!==p&&(q.c===p.c||q.nat===p.nat))n++});pts+=Math.min(3,n)});
+  return Math.round(pts/(pl.length*3)*100);
+}
+function renderSquad(){
+  const sl=formSlots();
+  fsel.value=S.squad.f;
+  S.squad.slots=S.squad.slots.map(n=>n&&have(n)?n:null);
+  const pl=[],eff=[];
+  pitchEl.innerHTML=`<div class="ln mid"></div><div class="ln circle"></div><div class="ln boxT"></div><div class="ln boxB"></div>`
+   +sl.map((s,i)=>{
+    const p=S.squad.slots[i]?byName(S.squad.slots[i]):null;
+    if(p){pl.push(p);eff.push(p.g===s[1]?p.ovr:p.ovr-8)}
+    const off=p&&p.g!==s[1];
+    return `<div class="slot" style="left:${s[2]}%;top:${s[3]}%" data-i="${i}">`
+      +(p?`<div class="mini">${cardHTML(p)}</div><button class="x" data-rm="${i}" aria-label="Quitar">✕</button>
+           ${off?'<span class="off">OTRA POSICIÓN −8</span>':''}`
+         :`<div class="mini emptyslot"><b>+</b><span>${s[0]}</span></div>`)
+      +`</div>`;
+  }).join('');
+  countUp(pitchEl);
+  const rating=eff.length?Math.round(eff.reduce((a,b)=>a+b,0)/eff.length):0;
+  document.getElementById('sqRating').textContent=rating||'–';
+  document.getElementById('sqChem').textContent=chemistry(pl)+'%';
+  document.getElementById('sqCount').textContent=pl.length+'/11';
+  save();
+}
+pitchEl.addEventListener('click',e=>{
+  const rm=e.target.closest('[data-rm]');
+  if(rm){S.squad.slots[+rm.dataset.rm]=null;renderSquad();return}
+  const sl=e.target.closest('.slot');if(sl)openPicker(+sl.dataset.i);
+});
+fsel.addEventListener('change',()=>{
+  const old=S.squad.slots.filter(Boolean).map(byName).filter(Boolean);
+  S.squad.f=fsel.value;
+  const sl=formSlots(),out=Array(sl.length).fill(null);
+  old.forEach(p=>{
+    let i=sl.findIndex((s,k)=>!out[k]&&s[1]===p.g);
+    if(i<0)i=sl.findIndex((s,k)=>!out[k]&&(s[1]==='POR')===(p.g==='POR'));
+    if(i>=0)out[i]=p.n;
+  });
+  S.squad.slots=out;renderSquad();
+});
+document.getElementById('sqAuto').addEventListener('click',()=>{
+  const sl=formSlots(),used=new Set(),out=Array(sl.length).fill(null);
+  const owned=P.filter(p=>have(p.n)).sort((a,b)=>b.ovr-a.ovr);
+  if(!owned.length){toast('Aún no tienes jugadores. ¡Abre un sobre!');return}
+  sl.forEach((s,i)=>{const p=owned.find(x=>!used.has(x.n)&&x.g===s[1]);if(p){out[i]=p.n;used.add(p.n)}});
+  sl.forEach((s,i)=>{
+    if(out[i])return;
+    const p=owned.find(x=>!used.has(x.n)&&(x.g==='POR')===(s[1]==='POR'));
+    if(p){out[i]=p.n;used.add(p.n)}
+  });
+  S.squad.slots=out;renderSquad();toast('✨ Mejor once posible');
+});
+document.getElementById('sqClear').addEventListener('click',()=>{S.squad.slots=Array(11).fill(null);renderSquad()});
+
+function addToXI(p){
+  const sl=formSlots(),slots=S.squad.slots;
+  if(slots.includes(p.n)){toast('Ya está en tu once');return false}
+  let i=sl.findIndex((s,k)=>!slots[k]&&s[1]===p.g);
+  if(i<0)i=slots.findIndex(x=>!x);
+  if(i<0){toast('Tu once está lleno: ve a "Mi once" y elige el hueco');return false}
+  slots[i]=p.n;save();toast('⚽ '+p.n+' añadido al once');refreshViews();return true;
+}
+
+/* selector de jugador para un hueco */
+const picker=document.getElementById('picker');
+function openPicker(i){
+  const s=formSlots()[i];
+  const list=P.filter(p=>have(p.n)).sort((a,b)=>((b.g===s[1])-(a.g===s[1]))||(b.ovr-a.ovr));
+  const inXI=new Set(S.squad.slots);
+  picker.innerHTML=`<div class="ppanel"><button class="pclose" id="pickX" aria-label="Cerrar">×</button>
+    <h3>Elige tu ${s[0]}</h3>`
+    +(list.length
+      ?`<div class="pgrid">${list.map(p=>`<div class="pitem" data-n="${p.n}" data-i="${i}">
+          <div class="mini" style="--k:.6">${cardHTML(p)}</div>
+          ${inXI.has(p.n)?'<span class="mtag dup">EN EL ONCE</span>':(p.g!==s[1]?'<span class="mtag off">OTRA POSICIÓN</span>':'')}
+        </div>`).join('')}</div>`
+      :`<p style="opacity:.7;margin:16px 0">Aún no tienes jugadores. Abre sobres para conseguirlos.</p>
+        <div class="pk-actions" style="animation:none"><button class="main" data-go="shop">🎁 Ir a la tienda</button></div>`)
+    +`</div>`;
+  picker.classList.add('open');countUp(picker);
+}
+function closePicker(){picker.classList.remove('open')}
+picker.addEventListener('click',e=>{
+  if(e.target===picker||e.target.closest('#pickX')){closePicker();return}
+  const g=e.target.closest('[data-go]');if(g){closePicker();go(g.dataset.go);return}
+  const it=e.target.closest('.pitem');if(!it)return;
+  const i=+it.dataset.i,n=it.dataset.n,slots=S.squad.slots,j=slots.indexOf(n);
+  if(j>=0)slots[j]=slots[i];
+  slots[i]=n;
+  closePicker();renderSquad();beep(660,.15,'triangle',.06);
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePacks();closePicker()}});
+
+/* ---------- ARRANQUE ---------- */
+drawCoins();updateBadge();tickFree();
 render();
 loadPhotos();
 </script>
