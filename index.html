@@ -443,6 +443,18 @@
   .mprize{font-size:1.8rem;font-weight:900;color:#ffd86b;margin:8px 0}
   .mres .pk-actions{justify-content:center}
 
+  /* ===== MÍTICA ===== */
+  .card.mythic{--txt:#1a0030;background:linear-gradient(135deg,#ff4df0,#00e5ff,#7dff6b,#ffd86b,#ff4df0);background-size:300% 300%;
+    animation:rainbow 4s linear infinite}
+  @keyframes rainbow{to{background-position:300% 300%}}
+  .scene:hover .card.mythic{filter:drop-shadow(0 0 34px #ff4df0) drop-shadow(0 18px 22px rgba(0,0,0,.6))}
+  .rv-wrap.mythic::before{opacity:1;animation:spin 2s linear infinite;
+    background:conic-gradient(from 0deg,transparent,#ff4df0,transparent 15%,#00e5ff,transparent 35%,#7dff6b,transparent 55%,#ffd86b,transparent 75%,#fff,transparent)}
+  .rlabel.mythic{font-size:1.5rem;background:linear-gradient(90deg,#ff4df0,#00e5ff,#7dff6b,#ffd86b,#ff4df0);background-size:300% auto;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 2s linear infinite,labelIn .6s .9s backwards}
+  .odd.myth span{background:linear-gradient(90deg,#ff4df0,#ffd86b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
+  .mnote{text-align:right;font-size:.65rem;opacity:.5;margin-top:-2px}
+
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
     .scene{opacity:1;transform:none}
@@ -646,7 +658,9 @@ P.push(
  T("E. Martínez","Emiliano Martínez","Aston Villa","Argentina","ar","GK","POR",86,"gold",[85,84,80,87,56,86],true),
  T("Kobel","Gregor Kobel","Borussia Dortmund","Suiza","ch","GK","POR",86,"gold",[86,85,80,87,58,85],true),
  T("Lunin","Andriy Lunin","Real Madrid","Ucrania","ua","GK","POR",85,"gold",[85,83,78,86,56,85],true),
- T("Bono","Yassine Bounou (Bono)","Al-Hilal","Marruecos","ma","GK","POR",86,"gold",[85,83,78,87,58,85],true)
+ T("Bono","Yassine Bounou (Bono)","Al-Hilal","Marruecos","ma","GK","POR",86,"gold",[85,83,78,87,58,85],true),
+ // ---- MÍTICA (probabilidad ínfima: ver PACKS.myth) ----
+ T("Diomande","Yan Diomande","Real Madrid","Costa de Marfil","ci","LW","ATA",99,"mythic",[99,95,94,99,60,86])
 );
 
 const L=["RIT","TIR","PAS","REG","DEF","FIS"], LGK=["ZAM","MAN","SAQ","REF","VEL","COL"];
@@ -670,7 +684,7 @@ const WIKI={
  "Čech":"Petr_Čech","Van der Sar":"Edwin_van_der_Sar","Zoff":"Dino_Zoff","Neuer":"Manuel_Neuer",
  "Oblak":"Jan_Oblak","Maignan":"Mike_Maignan","Mamardashvili":"Giorgi_Mamardashvili","Raya":"David_Raya",
  "Ter Stegen":"Marc-André_ter_Stegen","Sommer":"Yann_Sommer","E. Martínez":"Emiliano_Martínez",
- "Kobel":"Gregor_Kobel","Lunin":"Andriy_Lunin","Bono":"Yassine_Bounou"
+ "Kobel":"Gregor_Kobel","Lunin":"Andriy_Lunin","Bono":"Yassine_Bounou","Diomande":"Yan_Diomande"
 };
 const PH={}; // nombre -> {url, kind:'cut'|'photo'}
 
@@ -972,18 +986,21 @@ const TIERS=[
  {n:'Común',  col:'#b8c2d6',sell:100},
  {n:'Rara',   col:'#4aa8ff',sell:250},
  {n:'Épica',  col:'#c56bff',sell:700},
- {n:'Leyenda',col:'#ffd86b',sell:2000}
+ {n:'Leyenda',col:'#ffd86b',sell:2000},
+ {n:'Mítica', col:'#ff4df0',sell:10000}
 ];
-const tierOf=p=>(p.r==='icon'||p.ovr>=91)?3:p.ovr>=89?2:p.ovr>=88?1:0;
-const POOL=[0,1,2,3].map(t=>P.filter(p=>tierOf(p)===t));
+const tierOf=p=>p.r==='mythic'?4:(p.r==='icon'||p.ovr>=91)?3:p.ovr>=89?2:p.ovr>=88?1:0;
+const POOL=[0,1,2,3,4].map(t=>P.filter(p=>tierOf(p)===t));
+const MYTH=P.find(p=>p.r==='mythic');
 const avgOvr=a=>a.length?a.reduce((s,p)=>s+p.ovr,0)/a.length:0;
 
-/* tipos de sobre: odds = % de que cada carta sea Común / Rara / Épica / Leyenda */
+/* tipos de sobre: odds = % de que cada carta sea Común / Rara / Épica / Leyenda.
+   myth = % de que el SOBRE entero lleve la carta Mítica (Diomande 99): nunca más del 1% */
 const PACKS=[
- {id:'bronce', n:'Sobre Bronce', price:500,   cards:3, odds:[70,25, 5, 0], c1:'#e0a064', c2:'#5a3410'},
- {id:'plata',  n:'Sobre Plata',  price:1500,  cards:3, odds:[35,45,17, 3], c1:'#f1f3f8', c2:'#59616f'},
- {id:'oro',    n:'Sobre Oro',    price:4000,  cards:4, odds:[10,45,35,10], c1:'#ffe27a', c2:'#9a6a00'},
- {id:'leyenda',n:'Sobre Leyenda',price:10000, cards:4, odds:[ 0,20,50,30], c1:'#7bf3ff', c2:'#7a1bd6'}
+ {id:'bronce', n:'Sobre Bronce', price:500,   cards:3, odds:[70,25, 5, 0], myth:0.1,  c1:'#e0a064', c2:'#5a3410'},
+ {id:'plata',  n:'Sobre Plata',  price:1500,  cards:3, odds:[35,45,17, 3], myth:0.3,  c1:'#f1f3f8', c2:'#59616f'},
+ {id:'oro',    n:'Sobre Oro',    price:4000,  cards:4, odds:[10,45,35,10], myth:0.6,  c1:'#ffe27a', c2:'#9a6a00'},
+ {id:'leyenda',n:'Sobre Leyenda',price:10000, cards:4, odds:[ 0,20,50,30], myth:1,    c1:'#7bf3ff', c2:'#7a1bd6'}
 ];
 function rollTier(odds){
   let r=Math.random()*100,acc=0;
@@ -1054,9 +1071,11 @@ function renderShop(){
         <div class="pk-in"><b>FC 27</b><span>${k.n.toUpperCase().replace('SOBRE ','')}</span><em>${k.cards} CARTAS</em></div></div></div>
       <h3>${k.n}</h3>
       <div class="sub">${k.cards} cartas · Media esperada <b>${media.toFixed(1)}</b></div>
-      <div class="odds">${TIERS.map((t,i)=>`
+      <div class="odds">${TIERS.slice(0,4).map((t,i)=>`
         <div class="odd"><span style="color:${t.col}">${t.n}</span>
-          <div class="obar"><i data-w="${k.odds[i]}" style="background:${t.col}"></i></div><b>${k.odds[i]}%</b></div>`).join('')}</div>
+          <div class="obar"><i data-w="${k.odds[i]}" style="background:${t.col}"></i></div><b>${k.odds[i]}%</b></div>`).join('')}
+        <div class="odd myth"><span>💎 Mítica 99</span><div class="obar"><i data-w="${Math.max(2,k.myth*10)}" style="background:linear-gradient(90deg,#ff4df0,#00e5ff,#ffd86b)"></i></div><b>${String(k.myth).replace('.',',')}%</b></div>
+        <div class="mnote">por sobre (no por carta)</div></div>
       <button class="buy" data-pack="${k.id}" data-price="${k.price}">🪙 ${k.price.toLocaleString('es-ES')} · Comprar y abrir</button>
     </div>`;
   }).join('');
@@ -1081,8 +1100,10 @@ function buyPack(id){
   }
   S.coins-=k.price;
   const seen=new Set(),res=[];
+  // una sola tirada por sobre: probabilidad k.myth (%) de que una de sus cartas sea la Mítica
+  const mythSlot=(MYTH&&Math.random()*100<k.myth)?Math.floor(Math.random()*k.cards):-1;
   for(let i=0;i<k.cards;i++){
-    const p=drawCard(k);
+    const p=i===mythSlot?MYTH:drawCard(k);
     res.push({p,isNew:!have(p.n)&&!seen.has(p.n)});seen.add(p.n);
   }
   res.forEach(r=>S.coll[r.p.n]=(S.coll[r.p.n]||0)+1);
@@ -1109,13 +1130,17 @@ async function openSequence(k,res){
 
   for(let i=0;i<res.length;i++){
     const {p,isNew}=res[i],t=tierOf(p);
-    const kind=t>=3?'epic':t===2?'rare':'common';
-    const txt=p.r==='icon'?'👑 ¡ICONO LEYENDA!':t>=3?'🔥 ¡CARTA LEYENDA!':t===2?'💜 CARTA ÉPICA':t===1?'✨ CARTA RARA':'CARTA COMÚN';
+    const kind=t>=4?'mythic':t>=3?'epic':t===2?'rare':'common';
+    const txt=t>=4?'💎 ¡¡CARTA MÍTICA!!':p.r==='icon'?'👑 ¡ICONO LEYENDA!':t>=3?'🔥 ¡CARTA LEYENDA!':t===2?'💜 CARTA ÉPICA':t===1?'✨ CARTA RARA':'CARTA COMÚN';
     stage.innerHTML=`<div class="rcount">${i+1} / ${res.length}</div>
       <div class="rv-wrap ${kind}"><div class="rv"><div class="face back">FC</div><div class="face front">${cardHTML(p)}</div></div></div>
       <div class="rlabel ${kind}">${txt}${isNew?'<small>¡NUEVA EN TU COLECCIÓN!</small>':'<small style="color:#fff;opacity:.6">REPETIDA · se puede vender</small>'}</div>`;
     countUp(stage);tilt(stage);
-    if(t>=3){
+    if(t>=4){
+      confetti();setTimeout(confetti,500);setTimeout(confetti,1100);
+      pk.classList.add('epic-shake');setTimeout(()=>pk.classList.remove('epic-shake'),1500);
+      [392,523,659,784,1047,1319,1568].forEach((f,j)=>beep(f,.6,'triangle',.09,j*.14));
+    }else if(t>=3){
       confetti();pk.classList.add('epic-shake');setTimeout(()=>pk.classList.remove('epic-shake'),700);
       [523,659,784,1047].forEach((f,j)=>beep(f,.4,'triangle',.08,j*.12));
     }else if(t===2){[587,740,880].forEach((f,j)=>beep(f,.35,'triangle',.07,j*.1))}
