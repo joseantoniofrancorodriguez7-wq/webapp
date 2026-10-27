@@ -582,9 +582,11 @@ const CLUBINFO={
  "Liverpool":["LIV","#c8102e",64],"Bayern München":["FCB","#dc052d",5],"PSG":["PSG","#004170",524],
  "Arsenal":["ARS","#ef0107",57],"Napoli":["NAP","#12a0d7",113],"Inter":["INT","#0068a8",108],
  "AC Milan":["MIL","#fb090b",98],"Juventus":["JUV","#2a2a2a",109],"Manchester United":["MUN","#da291c",66],
- "Al-Nassr":["NAS","#e6b800",null],"Inter Miami":["MIA","#e58ab0",null],"Santos":["SAN","#444444",null],"LAFC":["LAF","#a58a4f",null]
+ "Al-Nassr":["NAS","#e6b800",null],"Inter Miami":["MIA","#e58ab0",null],"Santos":["SAN","#444444",null],"LAFC":["LAF","#a58a4f",null],
+ "Atlético de Madrid":["ATM","#cb3524",78],"Aston Villa":["AVL","#670e36",58],"Borussia Dortmund":["BVB","#e6c700",4],
+ "Chelsea":["CHE","#034694",61],"Dinamo Moscú":["DIN","#0a4ea0",null]
 };
-const CLUBWIKI={"Al-Nassr":"Al Nassr FC","Inter Miami":"Inter Miami CF","Santos":"Santos FC","LAFC":"Los Angeles FC"};
+const CLUBWIKI={"Al-Nassr":"Al Nassr FC","Inter Miami":"Inter Miami CF","Santos":"Santos FC","LAFC":"Los Angeles FC","Dinamo Moscú":"FC Dynamo Moscow"};
 const CRESTURL={};
 Object.keys(CLUBINFO).forEach(k=>{const id=CLUBINFO[k][2];if(id)CRESTURL[k]='https://crests.football-data.org/'+id+'.png'});
 
@@ -624,7 +626,27 @@ P.push(
  T("Kvaratskhelia","Khvicha Kvaratskhelia","PSG","Georgia","ge","LW","ATA",87,"gold",[86,82,80,90,40,72]),
  T("Alexander-Arnold","Trent Alexander-Arnold","Real Madrid","Inglaterra","gb-eng","RB","DEF",86,"gold",[76,70,90,80,78,72]),
  T("Son","Son Heung-min","LAFC","Corea del Sur","kr","LW","ATA",86,"gold",[86,85,80,86,40,68]),
- T("Neymar","Neymar Jr.","Santos","Brasil","br","LW","ATA",85,"hero",[80,83,85,92,32,60])
+ T("Neymar","Neymar Jr.","Santos","Brasil","br","LW","ATA",85,"hero",[80,83,85,92,32,60]),
+ // ---- PORTEROS ICONOS ----
+ T("Yashin","Lev Yashin","Dinamo Moscú","Rusia","ru","GK","POR",93,"icon",[91,90,80,94,65,93],true),
+ T("Casillas","Iker Casillas","Real Madrid","España","es","GK","POR",91,"icon",[90,88,78,94,60,90],true),
+ T("Kahn","Oliver Kahn","Bayern München","Alemania","de","GK","POR",90,"icon",[89,90,82,91,62,92],true),
+ T("Schmeichel","Peter Schmeichel","Manchester United","Dinamarca","dk","GK","POR",90,"icon",[90,91,80,90,64,91],true),
+ T("Čech","Petr Čech","Chelsea","República Checa","cz","GK","POR",89,"icon",[88,89,78,90,60,90],true),
+ T("Van der Sar","Edwin van der Sar","Manchester United","Países Bajos","nl","GK","POR",88,"icon",[86,87,85,88,58,89],true),
+ T("Zoff","Dino Zoff","Juventus","Italia","it","GK","POR",88,"icon",[87,88,76,88,58,90],true),
+ // ---- PORTEROS ACTUALES ----
+ T("Neuer","Manuel Neuer","Bayern München","Alemania","de","GK","POR",89,"gold",[88,88,91,86,62,90],true),
+ T("Oblak","Jan Oblak","Atlético de Madrid","Eslovenia","si","GK","POR",89,"gold",[89,86,82,92,60,88],true),
+ T("Maignan","Mike Maignan","AC Milan","Francia","fr","GK","POR",88,"gold",[88,86,82,90,66,86],true),
+ T("Mamardashvili","Giorgi Mamardashvili","Liverpool","Georgia","ge","GK","POR",87,"gold",[87,85,80,88,58,86],true),
+ T("Raya","David Raya","Arsenal","España","es","GK","POR",87,"gold",[86,84,86,86,62,85],true),
+ T("Ter Stegen","Marc-André ter Stegen","FC Barcelona","Alemania","de","GK","POR",87,"gold",[86,85,89,87,60,86],true),
+ T("Sommer","Yann Sommer","Inter","Suiza","ch","GK","POR",86,"gold",[86,86,78,87,56,86],true),
+ T("E. Martínez","Emiliano Martínez","Aston Villa","Argentina","ar","GK","POR",86,"gold",[85,84,80,87,56,86],true),
+ T("Kobel","Gregor Kobel","Borussia Dortmund","Suiza","ch","GK","POR",86,"gold",[86,85,80,87,58,85],true),
+ T("Lunin","Andriy Lunin","Real Madrid","Ucrania","ua","GK","POR",85,"gold",[85,83,78,86,56,85],true),
+ T("Safonov","Matvey Safonov","PSG","Rusia","ru","GK","POR",84,"gold",[84,82,77,85,58,83],true)
 );
 
 const L=["RIT","TIR","PAS","REG","DEF","FIS"], LGK=["ZAM","MAN","SAQ","REF","VEL","COL"];
@@ -643,7 +665,12 @@ const WIKI={
  "Lewandowski":"Robert_Lewandowski","Saka":"Bukayo_Saka","Ødegaard":"Martin_Ødegaard","Rúben Dias":"Rúben_Dias",
  "Donnarumma":"Gianluigi_Donnarumma","Lautaro":"Lautaro_Martínez","Valverde":"Federico_Valverde","Wirtz":"Florian_Wirtz",
  "Raphinha":"Raphinha","Foden":"Phil_Foden","Kvaratskhelia":"Khvicha_Kvaratskhelia",
- "Alexander-Arnold":"Trent_Alexander-Arnold","Son":"Son_Heung-min","Neymar":"Neymar"
+ "Alexander-Arnold":"Trent_Alexander-Arnold","Son":"Son_Heung-min","Neymar":"Neymar",
+ "Yashin":"Lev_Yashin","Casillas":"Iker_Casillas","Kahn":"Oliver_Kahn","Schmeichel":"Peter_Schmeichel",
+ "Čech":"Petr_Čech","Van der Sar":"Edwin_van_der_Sar","Zoff":"Dino_Zoff","Neuer":"Manuel_Neuer",
+ "Oblak":"Jan_Oblak","Maignan":"Mike_Maignan","Mamardashvili":"Giorgi_Mamardashvili","Raya":"David_Raya",
+ "Ter Stegen":"Marc-André_ter_Stegen","Sommer":"Yann_Sommer","E. Martínez":"Emiliano_Martínez",
+ "Kobel":"Gregor_Kobel","Lunin":"Andriy_Lunin","Safonov":"Matvey_Safonov"
 };
 const PH={}; // nombre -> {url, kind:'cut'|'photo'}
 
